@@ -1,0 +1,17 @@
+void_fraction, ,0.35
+d_pore, ,5e-10
+molecular_weight, ,None
+tortuosity, ,2.0
+R, ,8.314
+molecular_weight_i, , 
+ ,CH4,16.043
+ ,H2,2.016
+sigma_i, , 
+ ,CH4,3.758
+ ,H2,2.827
+epsilon_i, , 
+ ,CH4,148.6
+ ,H2,59.7
+component_i, , 
+ ,CH4, 
+ ,H2, 

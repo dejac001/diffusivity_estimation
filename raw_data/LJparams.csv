@@ -1,0 +1,16 @@
+"Substance","Name","sigma [angstrom]","epsilon [K]"
+Ar,"Argon",3.542,93.3
+He,"Helium",255.1,10.2
+Kr,"Krypton",3.655,178.9
+CH4,"Methane",3.758,148.6
+H2,"Hydrogen",2.827,59.7
+H2O,"Water",2.641,809.1
+N2,"Nitrogen",3.798,71.4
+CO2,"Carbon Dioxide",3.971,195.2
+O2,"Oxygen",3.467,106.7
+C2H6,"Ethane",4.443,215.7
+C2H4,"Ethylene",4.163,224.7
+C3H8,"Propane",5.118,237.1
+C3H6,"Propylene",4.678,298.9
+nC4H10,"Normal Butane",4.687,531.4
+iC4H10,"Iso Butane",5.278,330.1
