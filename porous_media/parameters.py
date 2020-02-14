@@ -6,7 +6,7 @@ class PureFluid:
     def __init__(self, void_fraction, d_pore, tortuosity, molecular_weight=None):
         """
 
-        :param molecular_weight:            molecular weight [kg/mol] for each component
+        :param molecular_weight:            molecular weight [g/mol] for each component
         :param void_fraction: void fraction of porous media
         :param d_pore:        nominal pore diameter [meters]
         :param tortuosity:    tortuosity of porous media
@@ -29,7 +29,8 @@ class PureFluid:
         :param i: component name
         :return:  Knudsen diffusivity m^2/s
         """
-        return self.void_fraction*self.d_pore/self.tortuosity/3.*math.sqrt(8*self.R*T/math.pi/self.molecular_weight)
+        MW = self.molecular_weight/1000.    # convert to kg/mol
+        return self.void_fraction*self.d_pore/self.tortuosity/3.*math.sqrt(8*self.R*T/math.pi/MW)
 
     def write_params(self, file_name):
         with open(file_name, 'w') as f:
@@ -116,34 +117,31 @@ class FluidMixture(PureFluid):
     def molecular_ij(self, i, j, T, P):
         """Molecular diffusivites estimated by Chapman-Enskog
 
+        Units:
+            * sqrt term leads to m/s as knudsen
+            prefactor:
+             m^3*Pa/mol/K*K/Pa/m/m*mol/molec [=] m
+
         :param i: sorbate i name
         :param j: sorbate j name
         :param T: temperature in K
-        :param P: pressure in atm
+        :param P: pressure in Pa
         :return: binary diffusion coefficient (m^2/s)
         """
 
-        # convert molecular weights to g/mol to apply formula
-        M_i = self.molecular_weight_i[i]*1000.
-        M_j = self.molecular_weight_i[j]*1000.
+        M_i = self.molecular_weight_i[i]/1000.  # convert to kg/mol
+        M_j = self.molecular_weight_i[j]/1000.  # convert to kg/mol
+        o_ij = self.sigma_ij_rule(i, j)*1e-10
+        N_av = 6.022e23
 
-        return 1.858e-3 * math.sqrt(T*T*T * (1. / M_i + 1. / M_j)) / (
-                P * self.sigma_ij_rule(i, j) * self.sigma_ij_rule(i, j) *
-                self.omega_ij(T / self.epsilon_ij_rule(i, j))
-        )/100./100.
+        return 3.*self.R*T/P/8/o_ij/o_ij/N_av*math.sqrt(self.R*T/2./math.pi*(1./M_i + 1./M_j))
 
-    def effective_macropore_i(self, i, j, temperature, pressure):
+    def effective_macropore_i(self, *args):
         """
-
-        :param temperature: temperature in K
-        :param pressure: pressure in Pa
-        :param i:       component i name
-        :param j:       other_component name
         :return:        effective macropore diffusivity m^2/s
         """
-        P_atm = pressure/101325.
         return self.void_fraction/self.tortuosity/(
-                1. / self.molecular_ij(i, j, temperature, P_atm) + 1. / self.knudsen_i(i, j, temperature, pressure)
+                1. / self.molecular_ij(*args) + 1. / self.knudsen_i(*args)
         )
 
     def write_calculations(self, output_file, temperature, pressure):

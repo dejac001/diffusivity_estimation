@@ -1,7 +1,7 @@
 void_fraction, ,0.35
-d_pore, ,5e-10
+d_pore, ,1e-08
 molecular_weight, ,None
-tortuosity, ,2.0
+tortuosity, ,1.5
 R, ,8.314
 molecular_weight_i, , 
  ,CH4,16.043

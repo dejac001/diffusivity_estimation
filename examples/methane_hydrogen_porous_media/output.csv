@@ -1,6 +1,6 @@
-CH4,H2,effective_macropore_i [m^2/s],1.015327e-10
-CH4,H2,knudsen_i [m^2/s],5.803363e-10
-CH4,H2,molecular_ij [m^2/s],2.220814e-11
-H2,CH4,effective_macropore_i [m^2/s],2.862856e-10
-H2,CH4,knudsen_i [m^2/s],1.637108e-09
-H2,CH4,molecular_ij [m^2/s],2.220814e-11
+CH4,H2,effective_macropore_i [m^2/s],1.133559e-07
+CH4,H2,knudsen_i [m^2/s],4.893825e-07
+CH4,H2,molecular_ij [m^2/s],6.657146e-05
+H2,CH4,effective_macropore_i [m^2/s],3.155794e-07
+H2,CH4,knudsen_i [m^2/s],1.380530e-06
+H2,CH4,molecular_ij [m^2/s],6.657146e-05
